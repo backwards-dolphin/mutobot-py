@@ -30,6 +30,7 @@ async def on_message(message):
 #hmag
 #cvel```"""
         await client.send_message(message.author, msg)
+        await client.send_message(message.channel,"I've sent you a PM, {0.author.mention}!".format(message))
     if message.content.startswith(".join"):
         user = message.author
         args = message.content.split(" ")
