@@ -57,6 +57,19 @@ async def on_message(message):
                 await client.send_message(message.channel,"I couldn't remove you, {0.author.mention}".format(message))
         else:
             await client.send_message(message.channel,"Mmmm..what is that?")
+    if message.content.startswith(".stamp"):
+        args = message.content.split(" ")
+        string = ""
+        args1 = ''.join(args[1:])
+        for letter in args1:
+            if letter is b:
+                string+=":b:"
+            elif letter.isalpha():
+                string+=":region_indicator_" + letter.tolower() + ": "
+            else:
+                pass
+        await client.send_message(message.channel,string)
+
 @client.event
 async def on_ready():
     print('Logged in as')
