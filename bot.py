@@ -62,10 +62,10 @@ async def on_message(message):
         string = ""
         args1 = ''.join(args[1:])
         for letter in args1:
-            if letter is b:
+            if letter is 'b':
                 string+=":b:"
             elif letter.isalpha():
-                string+=":region_indicator_" + letter.tolower() + ": "
+                string+=":regional_indicator_" + letter.lower() + ": "
             else:
                 pass
         await client.send_message(message.channel,string)
