@@ -11,6 +11,18 @@ async def on_message(message):
     if message.content.startswith('.hello'):
         msg = 'Hello, {0.author.mention}'.format(message)
         await client.send_message(message.channel,msg)
+    if message.content.startswith('.help'):
+        msg = """```css
+            MutoBot version 1.0\n
+            =A Tama Helper=\n
+            [Support Commands]\n
+            \t.help\t\tDisplays commands and other information\n
+            \t.join (role)\t\tAllows you to join a role for carries\n
+            \t\tSupported roles:\n
+            \t\t\thmag\n
+            \t\t\tcvel\n
+            \t.leave (role)\t\tAllows you to leave a role if you have gotten your carries.```"""
+        await client.send_message(message.author, msg)
     if message.content.startswith(".join"):
         user = message.author
         args = message.content.split(" ")
