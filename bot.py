@@ -1,6 +1,6 @@
 import discord
 import os
-roles = [hmag, cvel]
+roles = ["hmag", "cvel"]
 TOKEN = os.environ['discord']
 client = discord.Client()
 
@@ -49,7 +49,7 @@ async def on_message(message):
         args = message.content.split(" ")
         args1 = ''.join(args[1:])
         if args1 in roles:
-            role = discord.utils.get(user.server.roles, name=args1")
+            role = discord.utils.get(user.server.roles, name=args1)
             try:
                 await client.remove_roles(user,role)
                 await client.send_message(message.channel,"I've removed you from" + args1 + ", {0.author.mention}".format(message))
