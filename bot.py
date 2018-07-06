@@ -28,7 +28,7 @@ async def on_message(message):
 
 < Supported roles >
 #hmag
-#cvel```"""""
+#cvel```"""
         await client.send_message(message.author, msg)
     if message.content.startswith(".join"):
         user = message.author
