@@ -1,6 +1,6 @@
 import discord
 import os
-
+roles = [hmag, cvel]
 TOKEN = os.environ['discord']
 client = discord.Client()
 
@@ -35,18 +35,11 @@ async def on_message(message):
         user = message.author
         args = message.content.split(" ")
         args1 = ''.join(args[1:])
-        if args1 == "hmag":
-            role = discord.utils.get(user.server.roles, name ="hmag")
+        if args1 in roles:
+            role = discord.utils.get(user.server.roles, name=args1)
             try:
                 await client.add_roles(user,role)
-                await client.send_message(message.channel,"I've added you to hmag, {0.author.mention}".format(message))
-            except:
-                await client.send_message(message.channel,"I couldn't add you, {0.author.mention}".format(message))
-        elif args1 == "cvel":
-            role = discord.utils.get(user.server.roles, name ="cvel")
-            try:
-                await client.add_roles(user,role)
-                await client.send_message(message.channel,"I've added you to cvel, {0.author.mention}".format(message))
+                await client.send_message(message.channel,"I've added you to {args1}, {0.author.mention}".format(message))
             except:
                 await client.send_message(message.channel,"I couldn't add you, {0.author.mention}".format(message))
         else:
@@ -55,18 +48,11 @@ async def on_message(message):
         user = message.author
         args = message.content.split(" ")
         args1 = ''.join(args[1:])
-        if args1 == "hmag":
-            role = discord.utils.get(user.server.roles, name ="hmag")
+        if args1 in roles:
+            role = discord.utils.get(user.server.roles, name=args1")
             try:
                 await client.remove_roles(user,role)
-                await client.send_message(message.channel,"I've removed you from hmag, {0.author.mention}".format(message))
-            except:
-                await client.send_message(message.channel,"I couldn't remove you, {0.author.mention}".format(message))
-        elif args1 == "cvel":
-            role = discord.utils.get(user.server.roles, name ="cvel")
-            try:
-                await client.remove_roles(user,role)
-                await client.send_message(message.channel,"I've removed you from cvel, {0.author.mention}".format(message))
+                await client.send_message(message.channel,"I've removed you from {args1}, {0.author.mention}".format(message))
             except:
                 await client.send_message(message.channel,"I couldn't remove you, {0.author.mention}".format(message))
         else:
