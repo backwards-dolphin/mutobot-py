@@ -39,7 +39,7 @@ async def on_message(message):
             role = discord.utils.get(user.server.roles, name=args1)
             try:
                 await client.add_roles(user,role)
-                await client.send_message(message.channel,"I've added you to {args1}, {0.author.mention}".format(message))
+                await client.send_message(message.channel,"I've added you to" + args1 + ", {0.author.mention}".format(message))
             except:
                 await client.send_message(message.channel,"I couldn't add you, {0.author.mention}".format(message))
         else:
@@ -52,7 +52,7 @@ async def on_message(message):
             role = discord.utils.get(user.server.roles, name=args1")
             try:
                 await client.remove_roles(user,role)
-                await client.send_message(message.channel,"I've removed you from {args1}, {0.author.mention}".format(message))
+                await client.send_message(message.channel,"I've removed you from" + args1 + ", {0.author.mention}".format(message))
             except:
                 await client.send_message(message.channel,"I couldn't remove you, {0.author.mention}".format(message))
         else:
