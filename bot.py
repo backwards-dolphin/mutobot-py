@@ -75,7 +75,8 @@ async def on_message(message):
         if string == "":
             await client.send_message(message.channel,"Invalid Input!")
         await client.send_message(message.channel,string)
-
+    if message.content.startswith("where am i going, muto?"):
+        await client.send_message(message.channel,"Only up, my dude.")
 @client.event
 async def on_ready():
     print('Logged in as')
