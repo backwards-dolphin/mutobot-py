@@ -1,5 +1,6 @@
 import discord
 import os
+from PIL import Image
 roles = ["hmag", "cvel"]
 TOKEN = os.environ['discord']
 client = discord.Client()
@@ -62,8 +63,10 @@ async def on_message(message):
         string = ""
         args1 = ''.join(args[1:])
         for letter in args1:
-            if letter is 'b':
+            if letter is ('b' or 'B'):
                 string+=":b:"
+            elif letter is '?':
+                string+=":question:"
             elif letter.isalpha():
                 string+=":regional_indicator_" + letter.lower() + ": "
             else:
