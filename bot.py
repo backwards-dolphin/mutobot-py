@@ -73,7 +73,7 @@ async def on_message(message):
                 string+=":regional_indicator_" + letter.lower() + ": "
             else:
                 pass
-        await client.send_message(message.channel,string
+        await client.send_message(message.channel,string)
 
 @client.event
 async def on_ready():
