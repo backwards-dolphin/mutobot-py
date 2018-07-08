@@ -63,7 +63,7 @@ async def on_message(message):
         string = ""
         args1 = ''.join(args[1:])
         for letter in args1:
-            if letter is ('b' or 'B'):
+            if letter is 'b' or letter is 'B':
                 string+=":b:"
             elif letter is '?':
                 string+=":question:"
