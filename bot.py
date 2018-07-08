@@ -67,11 +67,13 @@ async def on_message(message):
                 string+=":b:"
             elif letter is '?':
                 string+=":question:"
+            elif letter is '!':
+                string+=":exclamation:"
             elif letter.isalpha():
                 string+=":regional_indicator_" + letter.lower() + ": "
             else:
                 pass
-        await client.send_message(message.channel,string)
+        await client.send_message(message.channel,string
 
 @client.event
 async def on_ready():
