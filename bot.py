@@ -1,6 +1,6 @@
 import discord
 import os
-from PIL import Image
+
 roles = ["hmag", "cvel"]
 TOKEN = os.environ['discord']
 client = discord.Client()
