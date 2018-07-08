@@ -1,5 +1,6 @@
 import discord
 import os
+import re
 
 roles = ["hmag", "cvel"]
 TOKEN = os.environ['discord']
@@ -60,19 +61,19 @@ async def on_message(message):
             await client.send_message(message.channel,"Mmmm..what is that?")
     if message.content.startswith(".stamp"):
         args = message.content.split(" ")
-        string = ""
         args1 = ''.join(args[1:])
-        for letter in args1:
+        string = ""
+        for letter in (re.sub('[^a-zA-Z!?]+', '', args1)):
             if letter is 'b' or letter is 'B':
                 string+=":b:"
             elif letter is '?':
                 string+=":question:"
-            elif letter is '!':
-                string+=":exclamation:"
             elif letter.isalpha():
                 string+=":regional_indicator_" + letter.lower() + ": "
             else:
                 pass
+        if string == "":
+            await client.send_message(message.channel,"Invalid Input!")
         await client.send_message(message.channel,string)
 
 @client.event
