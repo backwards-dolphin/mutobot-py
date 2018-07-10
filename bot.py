@@ -27,8 +27,8 @@ async def on_member_join(member):
 
 @client.event
 async def on_command_error(error, ctx):
-    await client.send_message(ctx.message.channel, "Invalid arguments!")
-
+    # await client.send_message(ctx.message.channel, "Invalid arguments!")
+    pass
 @client.command(pass_context = True, hidden = True)
 async def logout(ctx):
     if ctx.message.author.id in owner:
