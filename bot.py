@@ -51,13 +51,6 @@ async def cap():
     await client.say(getCap())
 
 @client.command(pass_context = True)
-@commands.has_any_role("memer", "Eggcellent","Tama-sama")
-async def member(ctx):
-    memberAdd = discord.utils.get(ctx.message.server.roles, name="Smol Egg")
-    await client.add_roles(ctx.message.mentions[0], memberAdd)
-    await client.say("Added!")
-
-@client.command(pass_context = True)
 async def stamp(ctx, *, msg):
     string = ""
     for letter in (re.sub('[^a-zA-Z!?]+', '', msg)):
