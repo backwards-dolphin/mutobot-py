@@ -1,88 +1,77 @@
 import discord
+from discord.ext.commands import Bot
+from discord.ext import commands
 import os
 import re
+from strings import *
 
-roles = ["hmag", "cvel"]
 TOKEN = os.environ['discord']
-client = discord.Client()
+command_prefix = '.'
+client = commands.Bot(command_prefix=command_prefix)
+owner = ["89973782285910016"]
+adminRoles = ["Eggcellent", "Tama-sama", "memer"]
 
-@client.event
-async def on_message(message):
-    if message.author == client.user:
-        return
-    if message.content.startswith('.hello'):
-        msg = 'Hello, {0.author.mention}'.format(message)
-        await client.send_message(message.channel,msg)
-    if message.content.startswith('.help'):
-        msg = """```md
-[ MutoBot version 1.0 ]
------------------------
-[ = A Tama Helper = ]
-=====================
+client.remove_command('help')
 
-< Commands >
-.help
-#Displays commands accepted by Muto
-.join (role)
-#Allows you to join a role for carries
-.leave (role)
-#Allows you to leave a role if you've gotten your carries
-
-< Supported roles >
-#hmag
-#cvel```"""
-        await client.send_message(message.author, msg)
-        await client.send_message(message.channel,"I've sent you a PM, {0.author.mention}!".format(message))
-    if message.content.startswith(".join"):
-        user = message.author
-        args = message.content.split(" ")
-        args1 = ''.join(args[1:])
-        if args1 in roles:
-            role = discord.utils.get(user.server.roles, name=args1)
-            try:
-                await client.add_roles(user,role)
-                await client.send_message(message.channel,"I've added you to " + args1 + ", {0.author.mention}".format(message))
-            except:
-                await client.send_message(message.channel,"I couldn't add you, {0.author.mention}".format(message))
-        else:
-            await client.send_message(message.channel,"Mmmm..what is that?")
-    if message.content.startswith(".leave"):
-        user = message.author
-        args = message.content.split(" ")
-        args1 = ''.join(args[1:])
-        if args1 in roles:
-            role = discord.utils.get(user.server.roles, name=args1)
-            try:
-                await client.remove_roles(user,role)
-                await client.send_message(message.channel,"I've removed you from " + args1 + ", {0.author.mention}".format(message))
-            except:
-                await client.send_message(message.channel,"I couldn't remove you, {0.author.mention}".format(message))
-        else:
-            await client.send_message(message.channel,"Mmmm..what is that?")
-    if message.content.startswith(".stamp"):
-        args = message.content.split(" ")
-        args1 = ''.join(args[1:])
-        string = ""
-        for letter in (re.sub('[^a-zA-Z!?]+', '', args1)):
-            if letter is 'b' or letter is 'B':
-                string+=":b:"
-            elif letter is '?':
-                string+=":question:"
-            elif letter.isalpha():
-                string+=":regional_indicator_" + letter.lower() + ": "
-            else:
-                pass
-        if string == "":
-            await client.send_message(message.channel,"Invalid Input!")
-        await client.send_message(message.channel,string)
-    if message.content.startswith("where am i going, muto?"):
-        await client.send_message(message.channel,"Only up, my dude.")
 @client.event
 async def on_ready():
-    print('Logged in as')
+    print("Logged in as")
     print(client.user.name)
     print(client.user.id)
-    await client.change_presence(game=discord.Game(name='Serving Tama'))
-    print('------')
+
+@client.event
+async def on_member_join(member):
+    welcome = client.get_channel("408318436192550924")
+    pass
+    # add logic here --> user posts username and send message to JRS channel for confirmation
+
+@client.event
+async def on_command_error(error, ctx):
+    await client.send_message(ctx.message.channel, "Invalid arguments!")
+
+@client.command(pass_context = True, hidden = True)
+async def logout(ctx):
+    if ctx.message.author.id in owner:
+        try:
+            await client.say("Logging out bot")
+            await client.close()
+        except:
+            await client.say("Failed to log out bot")
+    else:
+        await client.say("You do not have permissions to do this")
+        return
+
+@client.command(pass_context = True)
+async def help(ctx):
+    await client.say("I've sent you a PM, " + ctx.message.author.mention)
+    await client.send_message(ctx.message.author, getHelp())
+
+@client.command()
+async def cap():
+    await client.say(getCap())
+
+@client.command(pass_context = True)
+@commands.has_any_role("memer", "Eggcellent","Tama-sama")
+async def member(ctx):
+    memberAdd = discord.utils.get(ctx.message.server.roles, name="Smol Egg")
+    await client.add_roles(ctx.message.mentions[0], memberAdd)
+    await client.say("Added!")
+
+@client.command(pass_context = True)
+async def stamp(ctx, *, msg):
+    string = ""
+    for letter in (re.sub('[^a-zA-Z!?]+', '', msg)):
+        if letter is 'b' or letter is 'B':
+            string+=":b:"
+        elif letter is '?':
+            string+=":question:"
+        elif letter.isalpha():
+            string+=":regional_indicator_" + letter.lower() + ": "
+        else:
+            pass
+    if string == "":
+        await client.say("Invalid Input!")
+    await client.say(string)
+
 
 client.run(TOKEN)
