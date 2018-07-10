@@ -23,7 +23,7 @@ async def on_ready():
 async def on_member_join(member):
     welcome = client.get_channel("408318436192550924")
     pass
-    # add logic here --> user posts username and send message to JRS channel for confirmation
+    # add logic here --> user posts username and send message to JRS channel for confirmation s
 
 @client.event
 async def on_command_error(error, ctx):
