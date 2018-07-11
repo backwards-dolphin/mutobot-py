@@ -22,7 +22,7 @@ async def on_ready():
 @client.event
 async def on_member_join(member):
     welcome = client.get_channel("408318436192550924") # 408318436192550924
-    await client.send_message(welcome, "Welcome to Tama, " + member.mention + "! Please use .register (Maple User) to register your name! Be sure to introduce yourself to everyone!")
+    await client.send_message(welcome, "Welcome to Tama, " + member.mention + "! Please use .register (Maple Username) to register your name! Be sure to introduce yourself to everyone!")
     # add logic here --> user posts username and send message to JRS channel for confirmation s
 
 @client.event
