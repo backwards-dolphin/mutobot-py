@@ -19,6 +19,8 @@ def getHelp():
 #Allows you to leave a role if you've gotten your carries
 .stamp (text)
 #Converts your text to big letters
+.register (username)
+#Registers you so a Jr can approve your membership
 
 < Supported roles >
 #hmag
