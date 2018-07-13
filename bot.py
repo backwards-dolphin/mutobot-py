@@ -1,5 +1,4 @@
 import discord
-from discord.ext.commands import Bot
 from discord.ext import commands
 import os
 import re
@@ -22,12 +21,24 @@ async def on_ready():
 @client.event
 async def on_member_join(member):
     welcome = client.get_channel("408318436192550924") # 408318436192550924
-    await client.send_message(welcome, "Welcome to Tama, " + member.mention + "! Please use .register (Maple Username) to register your name! Be sure to introduce yourself to everyone and read the #rules!")
+    await client.send_message(welcome, "Welcome to Tama, " + member.mention + "! Please real the #rules to register! Be sure to introduce yourself to everyone!")
     # add logic here --> user posts username and send message to JRS channel for confirmation s
 
 @client.event
-async def on_command_error(error, ctx):
-    await client.send_message(ctx.message.channel, "Invalid arguments!")
+async def on_command_error(error,ctx):
+    if isinstance(error, commands.NoPrivateMessage):
+        await client.send_message(ctx.message.channel,"This command cannot be used in private messages.")
+
+    elif isinstance(error, commands.DisabledCommand):
+        await client.send_message(ctx.message.channel,"This command is disabled and cannot be used.")
+
+    elif isinstance(error, commands.MissingRequiredArgument):
+        await client.send_message(ctx.message.channel,"You are missing required arguments!")
+
+    elif isinstance(error, commands.CommandNotFound):
+        pass
+    else:
+        await client.send_message(ctx.message.channel,"Unknown error!")
 
 @client.event
 async def on_message(message):
@@ -62,6 +73,25 @@ async def register(ctx, msg):
     await client.change_nickname(ctx.message.author, ctx.message.author.name + " (" + msg + ")")
     await client.say("The JRs have been notified! We will verify you soon.")
     await client.send_message(jrChannel, ctx.message.author.mention + " has joined and verified their username. Please user .member {@mention} to verify.")
+
+@client.command(pass_context = True)
+async def train(ctx, level, range = 7):
+    try:
+        iLvl = int(level)
+        iRange = int(range)
+    except:
+        await client.say("Please enter numbers, not letters!")
+        return
+    # call dictionary for levels from strings.py and output results in discord format - embed maybe
+    levelDict = getTrainDict()
+    string = ""
+    embed=discord.Embed(title="Training spots", color=0xffdd88)
+    embed.set_thumbnail(url="https://i.imgur.com/LpZoKi7.png")
+    for key, value in levelDict.items():
+        if iLvl - iRange < key < iLvl + iRange:
+            embed.add_field(name="Level " + str(key), value=value, inline=False)
+    embed.set_footer(text="If you have training spot suggestions or find an error please contact @colin#0001")
+    await client.say(embed=embed)
 
 @client.command(pass_context = True)
 async def stamp(ctx, *, msg):
