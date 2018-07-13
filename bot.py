@@ -70,10 +70,14 @@ async def cap():
 
 @client.command(pass_context = True)
 async def register(ctx, msg):
-    jrChannel = client.get_channel("405565182891261963")
-    await client.change_nickname(ctx.message.author, ctx.message.author.name + " (" + msg + ")")
-    await client.say("The JRs have been notified! We will verify you soon.")
-    await client.send_message(jrChannel, ctx.message.author.mention + " has joined and verified their username. Please user .member {@mention} to verify.")
+    tama = client.get_server("404103946328866818")
+    if ctx.message.server == tama:
+        jrChannel = client.get_channel("405565182891261963")
+        await client.change_nickname(ctx.message.author, ctx.message.author.name + " (" + msg + ")")
+        await client.say("The JRs have been notified! We will verify you soon.")
+        await client.send_message(jrChannel, ctx.message.author.mention + " has joined and verified their username. Please user .member {@mention} to verify.")
+    else:
+        await client.say("You are not in Tama!")
 
 @client.command(pass_context = True)
 async def train(ctx, level, range = 7):
@@ -109,7 +113,6 @@ async def stamp(ctx, *, msg):
     if string == "":
         await client.say("Invalid Input!")
     await client.say(string)
-
 
 @client.command(pass_context = True)
 @commands.has_permissions(manage_roles = True)
