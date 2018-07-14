@@ -131,7 +131,8 @@ async def quickpoll(ctx, question, *options: str):
     description = []
     for x, option in enumerate(options):
         description += '\n {} {}'.format(reactions[x], option)
-    embed = discord.Embed(title=question, description=''.join(description))
+    embed = discord.Embed(title=question, description=''.join(description), color=0xffdd88)
+    embed.set_thumbnail(url="https://i.imgur.com/LpZoKi7.png")
     react_message = await client.say(embed=embed)
     for reaction in reactions[:len(options)]:
         await client.add_reaction(react_message, reaction)
