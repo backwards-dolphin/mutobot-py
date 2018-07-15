@@ -3,6 +3,8 @@ from discord.ext import commands
 import os
 import re
 from strings import *
+from datetime import datetime, time
+import asyncio
 
 TOKEN = os.environ['discord']
 command_prefix = '.'
@@ -25,6 +27,36 @@ async def on_member_join(member):
     await client.send_message(welcome, "Welcome to Tama, " + member.mention + "! Please real the #rules to register! Be sure to introduce yourself to everyone!")
     # add logic here --> user posts username and send message to JRS channel for confirmation s
 
+async def reset_notifications():
+    notifications = discord.Object(id="467921304478023681")
+    await client.wait_until_ready()
+    while not client.is_closed:
+        timeNow = datetime.now().time()  # Fetch current time
+        timeFormat = timeNow.replace(second=0,microsecond=0)  # Format to 00:00000
+        timeReset = datetime.now().time().replace(hour=20,minute=0,second=0,microsecond=0)
+
+        if timeFormat.hour in {8, 15, 17, 18, 19} and timeFormat.minute == 0:
+            await client.send_message(notifications,"Guild flag race commencing! Be sure to help our Tama! :tama:")
+            if timeFormat.hour == 8:
+                print("Sleeping for 6 hours and 50 minutes til next flag race")
+                await asyncio.sleep(24600)
+                return
+            else:
+                print("Sleeping for around an hour til next flag race")
+                await asyncio.sleep(3500)
+                return
+
+        if timeFormat == timeReset:
+            if (datetime.today().weekday() == 6):
+                await client.send_message(notifications,"Reset time! Meet up with your guildies in CH18 Root Abyss. Be sure to collect your guild potions too!")
+            else:
+                await client.send_message(notifications,"Reset time! Meet up with your guildies in CH18 Root Abyss.")
+            print("Sleeping for 11 hours for the next reset")
+            time.sleep(39600)
+            return # Return to next reset
+
+        await asyncio.sleep(60)
+
 @client.event
 async def on_command_error(error,ctx):
     if isinstance(error, commands.NoPrivateMessage):
@@ -39,8 +71,6 @@ async def on_command_error(error,ctx):
     elif isinstance(error, commands.CommandNotFound):
         pass
 
-    elif isinstance(error, commands.MissingPermissions):
-        await client.send_message(ctx.message.channel,"You're not allowed to use this!")
     else:
         print("Some error has been thrown!")
 
@@ -51,7 +81,7 @@ async def on_message(message):
     await client.process_commands(message)
 
 @client.command(pass_context = True, hidden = True)
-async def logout2(ctx):
+async def logout(ctx):
     if ctx.message.author.id in owner:
         try:
             await client.say("Logging out bot")
@@ -117,7 +147,7 @@ async def stamp(ctx, *, msg):
         await client.say("Invalid Input!")
     await client.say(string)
 
-# @commands.has_permissions(manage_roles = True)
+@commands.has_permissions(manage_roles = True)
 @client.command(pass_context=True)  # Taken from github/Vexs but formatted
 async def quickpoll(ctx, *, options: str):
 
@@ -155,4 +185,5 @@ async def member(ctx):
      await client.add_roles(ctx.message.mentions[0], memberAdd)
      await client.say("Added!")
 
+client.loop.create_task(reset_notifications())
 client.run(TOKEN)
