@@ -40,7 +40,7 @@ async def reset_notifications():
             if timeFormat.hour == 8:
                 print("Sleeping for 6 hours and 50 minutes til next flag race")
                 print("Formatted time 1st Flag: " + time.Format)
-                await asyncio.sleep(24600)
+                await asyncio.sleep(25200)
                 return
             else:
                 print("Sleeping for around an hour til next flag race")
