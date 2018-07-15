@@ -125,7 +125,7 @@ async def train(ctx, level, range = 7):
         await client.say("Please enter numbers, not letters!")
         return
     # call dictionary for levels from strings.py and output results in discord format - embed maybe
-    if range => 20:
+    if range >= 20:
         levelDict = getTrainDict()
         string = ""
         embed=discord.Embed(title="Training spots", color=0xffdd88)
