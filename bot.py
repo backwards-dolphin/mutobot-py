@@ -38,6 +38,9 @@ async def on_command_error(error,ctx):
 
     elif isinstance(error, commands.CommandNotFound):
         pass
+
+    elif isinstance(error, commands.MissingPermissions):
+        await client.send_message(ctx.message.channel,"You're not allowed to use this!")
     else:
         print("Some error has been thrown!")
 
@@ -114,7 +117,7 @@ async def stamp(ctx, *, msg):
         await client.say("Invalid Input!")
     await client.say(string)
 
-@commands.has_permissions(manage_roles = True)
+# @commands.has_permissions(manage_roles = True)
 @client.command(pass_context=True)  # Taken from github/Vexs but formatted
 async def quickpoll(ctx, *, options: str):
 
