@@ -104,11 +104,15 @@ async def cap():
 @client.command(pass_context = True)
 async def register(ctx, msg):
     tama = client.get_server("404103946328866818")
+    smolEgg = discord.utils.get(ctx.message.server.roles, name="Smol Egg")
     if ctx.message.server == tama:
-        jrChannel = client.get_channel("405565182891261963")
-        await client.change_nickname(ctx.message.author, ctx.message.author.name + " (" + msg + ")")
-        await client.say("The JRs have been notified! We will verify you soon.")
-        await client.send_message(jrChannel, ctx.message.author.mention + " has joined and verified their username. Please user .member {@mention} to verify.")
+        if smolEgg in ctx.message.author.roles:
+            await client.say("You are already a member!")
+        else:
+            jrChannel = client.get_channel("405565182891261963")
+            await client.change_nickname(ctx.message.author, ctx.message.author.name + " (" + msg + ")")
+            await client.say("The JRs have been notified! We will verify you soon.")
+            await client.send_message(jrChannel, ctx.message.author.mention + " has joined and verified their username. Please user .member {@mention} to verify.")
     else:
         await client.say("You are not in Tama!")
 
