@@ -36,7 +36,7 @@ async def reset_notifications():
         timeReset = datetime.now().time().replace(hour=20,minute=0,second=0,microsecond=0)
 
         if timeFormat.hour in {8, 15, 17, 18, 19} and timeFormat.minute == 0:
-            await client.send_message(notifications,"Guild flag race commencing! Be sure to help our Tama! :tama:")
+            await client.send_message(notifications,"Guild flag race commencing! Be sure to help out Tama!")
             if timeFormat.hour == 8:
                 print("Sleeping for 6 hours and 50 minutes til next flag race")
                 print("Formatted time 1st Flag: " + timeFormat)
