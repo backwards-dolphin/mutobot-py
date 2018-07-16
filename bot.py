@@ -23,8 +23,8 @@ async def on_ready():
 
 @client.event
 async def on_member_join(member):
-    tama = client.get_server("404103946328866818")
-    if ctx.client.server == tama:
+    tama = "404103946328866818"
+    if member.server.id == tama:
         welcome = client.get_channel("408318436192550924") # 408318436192550924
         rules = client.get_channel("404439224973000704")
         await client.send_message(welcome, "Welcome to Tama, " + member.mention + "! Please real the " + rules.mention + " to register! Be sure to introduce yourself to everyone!")
@@ -33,36 +33,18 @@ async def on_member_join(member):
 async def reset_notifications():
     notifications = discord.Object(id="467921304478023681")
     await client.wait_until_ready()
-    while not client.is_closed:
-        timeNow = datetime.now().time()  # Fetch current time
-        timeFormat = timeNow.replace(second=0,microsecond=0)  # Format to 00:00000
-        timeReset = datetime.now().time().replace(hour=20,minute=0,second=0,microsecond=0)
-
-        if timeFormat.hour in {8, 15, 17, 18, 19} and timeFormat.minute == 0:
+    flagraces = [12,19,21,22,23]
+    while True:
+        if datetime.utcnow().hour in flagraces and datetime.utcnow().minute == 0:
             await client.send_message(notifications,"Guild flag race commencing! Be sure to help out Tama!")
-            if timeFormat.hour == 8:
-                print("Sleeping for 6 hours and 50 minutes til next flag race")
-                print("Formatted time 1st Flag: " + str(timeFormat))
-                await asyncio.sleep(25200)
-                return
-            else:
-                print("Sleeping for around an hour til next flag race")
-                print("Formatted time Other Flags: " + str(timeFormat))
-                await asyncio.sleep(3600)
-                return
 
-        if timeFormat == timeReset:
+        if datetime.utcnow().hour == 0 and datetime.utcnow().minute == 0:
             if (datetime.today().weekday() == 6):
-                await client.send_message(notifications,"Reset time! Meet up with your guildies in CH18 Root Abyss. Be sure to collect your guild potions too!")
+                await client.send_message(notifications,"Reset time! Meet up with your guild members in CH18 Root Abyss. Be sure to collect your guild potions too!")
             else:
                 await client.send_message(notifications,"Reset time! Meet up with your guildies in CH18 Root Abyss.")
-            print("Sleeping for 12 hours for the next reset")
-            print("Formatted time: " + str(timeFormat))
-            time.sleep(43200)
-            return # Return to next reset
 
-        print("Sleeping for 60 seconds..")
-        await asyncio.sleep(60)
+        await asyncio.sleep(120)
 
 @client.event
 async def on_command_error(error,ctx):
@@ -196,7 +178,9 @@ async def quickpoll(ctx, *, options: str):
 @commands.has_permissions(manage_roles = True)
 async def member(ctx):
      memberAdd = discord.utils.get(ctx.message.server.roles, name="Smol Egg")
+     verifiedAdd = discord.utils.get(ctx.message.server.roles,name="Verified")
      await client.add_roles(ctx.message.mentions[0], memberAdd)
+     await client.add_roles(ctx.message.mentions[0], verifiedAdd)
      await client.say("Added!")
 
 client.loop.create_task(reset_notifications())
