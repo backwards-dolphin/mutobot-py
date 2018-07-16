@@ -45,7 +45,7 @@ async def reset_notifications():
             else:
                 print("Sleeping for around an hour til next flag race")
                 print("Formatted time Other Flags: " + str(timeFormat))
-                await asyncio.sleep(3500)
+                await asyncio.sleep(3600)
                 return
 
         if timeFormat == timeReset:
@@ -53,9 +53,9 @@ async def reset_notifications():
                 await client.send_message(notifications,"Reset time! Meet up with your guildies in CH18 Root Abyss. Be sure to collect your guild potions too!")
             else:
                 await client.send_message(notifications,"Reset time! Meet up with your guildies in CH18 Root Abyss.")
-            print("Sleeping for 11 hours for the next reset")
+            print("Sleeping for 12 hours for the next reset")
             print("Formatted time: " + str(timeFormat))
-            time.sleep(39600)
+            time.sleep(43200)
             return # Return to next reset
 
         print("Sleeping for 60 seconds..")
