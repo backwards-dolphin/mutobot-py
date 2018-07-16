@@ -182,5 +182,6 @@ async def member(ctx):
      await client.add_roles(ctx.message.mentions[0], verifiedAdd)
      await client.say("Added!")
 
-client.loop.create_task(reset_notifications())
+
 client.run(TOKEN)
+client.loop.create_task(reset_notifications())
