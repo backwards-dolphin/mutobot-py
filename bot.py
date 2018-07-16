@@ -23,8 +23,11 @@ async def on_ready():
 
 @client.event
 async def on_member_join(member):
-    welcome = client.get_channel("408318436192550924") # 408318436192550924
-    await client.send_message(welcome, "Welcome to Tama, " + member.mention + "! Please real the #rules to register! Be sure to introduce yourself to everyone!")
+    tama = client.get_server("404103946328866818")
+    if ctx.client.server == tama:
+        welcome = client.get_channel("408318436192550924") # 408318436192550924
+        rules = client.get_channel("404439224973000704")
+        await client.send_message(welcome, "Welcome to Tama, " + member.mention + "! Please real the " + rules.mention + " to register! Be sure to introduce yourself to everyone!")
     # add logic here --> user posts username and send message to JRS channel for confirmation s
 
 async def reset_notifications():
