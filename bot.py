@@ -44,7 +44,6 @@ async def reset_notifications():
             else:
                 await client.send_message(notifications,"Reset time! Meet up with your guildies in CH18 Root Abyss.")
             await asyncio.sleep(600)
-        await asyncio.sleep(60)
 
 @client.event
 async def on_command_error(error,ctx):
