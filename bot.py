@@ -37,14 +37,13 @@ async def reset_notifications():
     while True:
         if datetime.utcnow().hour in flagraces and datetime.utcnow().minute == 0:
             await client.send_message(notifications,"Guild flag race commencing! Be sure to help out Tama!")
-
+            await asyncio.sleep(600)
         if datetime.utcnow().hour == 0 and datetime.utcnow().minute == 0:
             if (datetime.today().weekday() == 6):
                 await client.send_message(notifications,"Reset time! Meet up with your guild members in CH18 Root Abyss. Be sure to collect your guild potions too!")
             else:
                 await client.send_message(notifications,"Reset time! Meet up with your guildies in CH18 Root Abyss.")
-
-        await asyncio.sleep(120)
+            await asyncio.sleep(600)
 
 @client.event
 async def on_command_error(error,ctx):
