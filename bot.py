@@ -11,6 +11,7 @@ command_prefix = '.'
 client = commands.Bot(command_prefix=command_prefix)
 owner = ["89973782285910016"]
 adminRoles = ["Eggcellent", "Tama-sama", "memer"]
+supportedRoles = ["notifications","hmag","cvel"]
 
 client.remove_command('help')
 
@@ -183,38 +184,22 @@ async def poll(ctx, *, options: str):
 @client.command(pass_context=True)
 async def join(ctx, role):
     user = ctx.message.author
-    if role == "hmag":
-        assign = discord.utils.get(user.server.roles, name="hmag")
-        await client.add_roles(user,assign)
-        await client.say("I've added you to " + role + ", " + ctx.message.author.mention)
-    elif role == "cvel":
-        assign = discord.utils.get(user.server.roles, name="cvel")
-        await client.add_roles(user,assign)
-        await client.say("I've added you to " + role + ", " + ctx.message.author.mention)
-    elif role == "notifications":
-        assign = discord.utils.get(user.server.roles, name="notifications")
+    if role in supportedRoles:
+        assign = discord.utils.get(user.server.roles, name=role)
         await client.add_roles(user,assign)
         await client.say("I've added you to " + role + ", " + ctx.message.author.mention)
     else:
-        await client.say("Invalid roll!")
+        await client.say("Invalid role! Please check ``.help`` for suported roles")
 
 @client.command(pass_context=True)
 async def leave(ctx, role):
     user = ctx.message.author
-    if role == "hmag":
-        assign = discord.utils.get(user.server.roles, name="hmag")
-        await client.remove_roles(user,assign)
-        await client.say("I've removed you from " + role + ", " + ctx.message.author.mention)
-    elif role == "cvel":
-        assign = discord.utils.get(user.server.roles, name="cvel")
-        await client.remove_roles(user,assign)
-        await client.say("I've removed you from " + role + ", " + ctx.message.author.mention)
-    elif role == "notifications":
-        assign = discord.utils.get(user.server.roles, name="notifications")
+    if role in supportedRoles:
+        assign = discord.utils.get(user.server.roles, name=role)
         await client.remove_roles(user,assign)
         await client.say("I've removed you from " + role + ", " + ctx.message.author.mention)
     else:
-        await client.say("Invalid roll!")
+        await client.say("Invalid role! Please check ``.help`` for suported roles")
 
 @client.command(pass_context = True)
 @commands.has_permissions(manage_roles = True)
