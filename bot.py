@@ -36,14 +36,19 @@ async def reset_notifications():
     flagraces = [12,19,21,22,23]
     while True:
         if datetime.utcnow().hour in flagraces and datetime.utcnow().minute == 0:
-            await client.send_message(notifications,"Guild flag race commencing! Be sure to help out Tama!")
+            msg = await client.send_message(notifications,"Guild flag race commencing! Be sure to help out Tama!")
             await asyncio.sleep(600)
+            await client.delete_message(msg)
         if datetime.utcnow().hour == 0 and datetime.utcnow().minute == 0:
             if (datetime.today().weekday() == 6):
-                await client.send_message(notifications,"Reset time! Meet up with your guild members in CH18 Root Abyss. Be sure to collect your guild potions too!")
+                msg = await client.send_message(notifications,"Reset time! Meet up with your guild members in CH18 Root Abyss. Be sure to collect your guild potions too!")
+            elif (datetime.today().weekday() == 3):
+                msg = await client.send_message(notifications,"Weekly reset time! Meet up with your guildies in CH18 Root Abyss.")
             else:
-                await client.send_message(notifications,"Reset time! Meet up with your guildies in CH18 Root Abyss.")
+                msg = await client.send_message(notifications,"Reset time! Meet up with your guildies in CH18 Root Abyss.")
             await asyncio.sleep(600)
+            await client.delete_message(msg)
+
         await asyncio.sleep(60)
 
 
@@ -146,7 +151,7 @@ async def stamp(ctx, *, msg):
 
 @commands.has_permissions(manage_roles = True)
 @client.command(pass_context=True)  # Taken from github/Vexs but formatted
-async def quickpoll(ctx, *, options: str):
+async def poll(ctx, *, options: str):
 
     list1 = options.split("|")
     question = list1[0] # Get the question
@@ -174,6 +179,42 @@ async def quickpoll(ctx, *, options: str):
         await client.add_reaction(react_message, reaction)
     embed.set_footer(text='Poll ID: {}'.format(react_message.id))
     await client.edit_message(react_message, embed=embed)
+
+@client.command(pass_context=True)
+async def join(ctx, role):
+    user = ctx.message.author
+    if role == "hmag":
+        assign = discord.utils.get(user.server.roles, name="hmag")
+        await client.add_roles(user,assign)
+        await client.say("I've added you to " + role + ", " ctx.message.author.mention)
+    elif role == "cvel":
+        assign = discord.utils.get(user.server.roles, name="cvel")
+        await client.add_roles(user,assign)
+        await client.say("I've added you to " + role + ", " ctx.message.author.mention)
+    elif role == "notifications":
+        assign = discord.utils.get(user.server.roles, name="notifications")
+        await client.add_roles(user,assign)
+        await client.say("I've added you to " + role + ", " ctx.message.author.mention)
+    else:
+        await client.say("Invalid roll!")
+
+@client.command(pass_context=True)
+async def leave(ctx, role):
+    user = ctx.message.author
+    if role == "hmag":
+        assign = discord.utils.get(user.server.roles, name="hmag")
+        await client.remove_roles(user,assign)
+        await client.say("I've removed you from " + role + ", " ctx.message.author.mention)
+    elif role == "cvel":
+        assign = discord.utils.get(user.server.roles, name="cvel")
+        await client.remove_roles(user,assign)
+        await client.say("I've removed you from " + role + ", " ctx.message.author.mention)
+    elif role == "notifications":
+        assign = discord.utils.get(user.server.roles, name="notifications")
+        await client.remove_roles(user,assign)
+        await client.say("I've removed you from " + role + ", " ctx.message.author.mention)
+    else:
+        await client.say("Invalid roll!")
 
 @client.command(pass_context = True)
 @commands.has_permissions(manage_roles = True)

@@ -27,7 +27,8 @@ def getHelp():
 
 < Supported roles >
 #hmag
-#cvel```"""
+#cvel
+#notifications```"""
     return msg
 
 def getCap():
