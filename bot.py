@@ -189,7 +189,7 @@ async def join(ctx, role):
         await client.add_roles(user,assign)
         await client.say("I've added you to " + role + ", " + ctx.message.author.mention)
     else:
-        await client.say("Invalid role! Please check ``.help`` for suported roles")
+        await client.say("Invalid role! Please check ``.help`` for supported roles")
 
 @client.command(pass_context=True)
 async def leave(ctx, role):
@@ -199,7 +199,7 @@ async def leave(ctx, role):
         await client.remove_roles(user,assign)
         await client.say("I've removed you from " + role + ", " + ctx.message.author.mention)
     else:
-        await client.say("Invalid role! Please check ``.help`` for suported roles")
+        await client.say("Invalid role! Please check ``.help`` for supported roles")
 
 @client.command(pass_context = True)
 @commands.has_permissions(manage_roles = True)
