@@ -186,15 +186,15 @@ async def join(ctx, role):
     if role == "hmag":
         assign = discord.utils.get(user.server.roles, name="hmag")
         await client.add_roles(user,assign)
-        await client.say("I've added you to " + role + ", " ctx.message.author.mention)
+        await client.say("I've added you to " + role + ", " + ctx.message.author.mention)
     elif role == "cvel":
         assign = discord.utils.get(user.server.roles, name="cvel")
         await client.add_roles(user,assign)
-        await client.say("I've added you to " + role + ", " ctx.message.author.mention)
+        await client.say("I've added you to " + role + ", " + ctx.message.author.mention)
     elif role == "notifications":
         assign = discord.utils.get(user.server.roles, name="notifications")
         await client.add_roles(user,assign)
-        await client.say("I've added you to " + role + ", " ctx.message.author.mention)
+        await client.say("I've added you to " + role + ", " + ctx.message.author.mention)
     else:
         await client.say("Invalid roll!")
 
@@ -204,15 +204,15 @@ async def leave(ctx, role):
     if role == "hmag":
         assign = discord.utils.get(user.server.roles, name="hmag")
         await client.remove_roles(user,assign)
-        await client.say("I've removed you from " + role + ", " ctx.message.author.mention)
+        await client.say("I've removed you from " + role + ", " + ctx.message.author.mention)
     elif role == "cvel":
         assign = discord.utils.get(user.server.roles, name="cvel")
         await client.remove_roles(user,assign)
-        await client.say("I've removed you from " + role + ", " ctx.message.author.mention)
+        await client.say("I've removed you from " + role + ", " + ctx.message.author.mention)
     elif role == "notifications":
         assign = discord.utils.get(user.server.roles, name="notifications")
         await client.remove_roles(user,assign)
-        await client.say("I've removed you from " + role + ", " ctx.message.author.mention)
+        await client.say("I've removed you from " + role + ", " + ctx.message.author.mention)
     else:
         await client.say("Invalid roll!")
 
