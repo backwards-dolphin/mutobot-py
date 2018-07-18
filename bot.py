@@ -111,28 +111,6 @@ async def register(ctx, msg):
         await client.say("You are not in Tama!")
 
 @client.command(pass_context = True)
-async def train(ctx, level, range = 7):
-    try:
-        iLvl = int(level)
-        iRange = int(range)
-    except:
-        await client.say("Please enter numbers, not letters!")
-        return
-    # call dictionary for levels from strings.py and output results in discord format - embed maybe
-    if iRange <= 20:
-        levelDict = getTrainDict()
-        string = ""
-        embed=discord.Embed(title="Training spots", color=0xffdd88)
-        embed.set_thumbnail(url="https://i.imgur.com/LpZoKi7.png")
-        for key, value in levelDict.items():
-            if iLvl - iRange < key < iLvl + iRange:
-                embed.add_field(name="Level " + str(key), value=value, inline=False)
-        embed.set_footer(text="If you have training spot suggestions or find an error please contact @colin#0001")
-        await client.say(embed=embed)
-    else:
-        await client.say("Please use a smaller range! (less than 20)")
-
-@client.command(pass_context = True)
 async def stamp(ctx, *, msg):
     string = ""
     for letter in (re.sub('[^a-zA-Z!?]+', '', msg)):
