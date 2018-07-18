@@ -32,7 +32,7 @@ async def on_member_join(member):
     # add logic here --> user posts username and send message to JRS channel for confirmation s
 
 async def reset_notifications():
-    notifications = discord.Object(id="467921304478023681")
+    notifications = discord.Object(id="468950573497057332")
     await client.wait_until_ready()
     flagraces = [12,19,21,22,23]
     while True:
