@@ -12,6 +12,7 @@ client = commands.Bot(command_prefix=command_prefix)
 owner = ["89973782285910016"]
 adminRoles = ["Eggcellent", "Tama-sama", "memer"]
 supportedRoles = ["notifications","hmag","cvel","lomien"]
+extensions = ['starsim']
 
 client.remove_command('help')
 
@@ -38,7 +39,7 @@ async def reset_notifications():
     while True:
         if datetime.utcnow().hour in flagraces and datetime.utcnow().minute == 0:
             msg = await client.send_message(notifications,"Guild flag race commencing! Be sure to help out Tama!")
-            await asyncio.sleep(600)
+            await asyncio.sleep(1800)
             await client.delete_message(msg)
         if datetime.utcnow().hour == 0 and datetime.utcnow().minute == 0:
             if (datetime.today().weekday() == 6):
@@ -47,7 +48,7 @@ async def reset_notifications():
                 msg = await client.send_message(notifications,"Weekly reset time! Meet up with your guildies in CH18 Root Abyss.")
             else:
                 msg = await client.send_message(notifications,"Reset time! Meet up with your guildies in CH18 Root Abyss.")
-            await asyncio.sleep(600)
+            await asyncio.sleep(1800)
             await client.delete_message(msg)
         await asyncio.sleep(60 - datetime.utcnow().second)
 
@@ -207,6 +208,13 @@ async def member(ctx):
      verifiedAdd = discord.utils.get(ctx.message.server.roles,name="Verified")
      await client.add_roles(ctx.message.mentions[0], memberAdd, verifiedAdd)
      await client.say("Added!")
+
+if __name__ == '__main__':
+    for extension in extensions:
+        try:
+            client.load_extension(extension)
+        except Exception as error:
+            print('{} cannot be loaded. [{}]'.format(extension,error))
 
 client.loop.create_task(reset_notifications())
 client.run(TOKEN)
