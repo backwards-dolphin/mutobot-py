@@ -10,7 +10,7 @@ command_prefix = '.'
 client = commands.Bot(command_prefix=command_prefix)
 owner = ["89973782285910016"]
 supportedRoles = ["notifications","hmag","cvel","lomien"]
-extensions = ['starsim', 'training', 'strings']
+extensions = ['starsim', 'training', 'strings', 'poll']
 
 client.remove_command('help')
 
