@@ -50,7 +50,8 @@ async def reset_notifications():
             await asyncio.sleep(600)
             await client.delete_message(msg)
 
-        await asyncio.sleep(60)
+        currentSec = datetime.utc().second
+        await asyncio.sleep(60 - currentSec)
 
 
 @client.event
