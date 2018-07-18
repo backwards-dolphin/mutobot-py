@@ -45,7 +45,7 @@ This can help our guild grow, as well as help you get your 10 RA runs!```"""
     return msg
 
 def getTrainDict():
-    spots = {10: "[LV10]Green Mushroom: Henesys: Spore Hill",
+    spots = {10: "Green Mushroom: Henesys: Spore Hill",
     15: "Stone Golem - Henesys: Golem’s Temple Entrance",
     19: "Flaming Mixed Golem - Henesys: Golem Temple 3",
     26: "Evil eyes - North Forest: Giant Tree",
@@ -79,9 +79,13 @@ def getTrainDict():
     155: "Flora - Stone Colossus: Colossus East Road 2\n[*80]Enraged Espresso Machine - Kerning Tower: 2F Cafe <4>",
     160: "Normal Horntail - Leafre: Cave of Life",
     161: "Deadly Dressing Table[*80] - Kerning Tower: 5F Cosmetics Shops <4>",
+    162: "Mutant Snail - Henesys Ruins: Henesys Ruins Market",
+    164: "Oblivion Guardian - Temple of Time: Time Lane: Road to Oblivion 4\nOblivion Guardian[*90] - Temple of Time: Time Lane: Detour to Oblivion 4",
+    170: "Official Knight A, B, C - Knight Stronghold: Knight District 1-2",
     173: "Gray Commuter Saucer - Omega Sector: Corridor 204",
     175: "Gray Luxury Saucer - Omega Sector: Corridor 202",
     178: "Gray Commuter Saucer[*140] - Omega Sector: Corridor H01",
+    184: "Advanced Knight A-E - Knight Stronghold: Hall of Honor",
     190: "Swollen Stump - Twilight Perion: Desolate Hills\nSwollen Stump - Twilight Perion: Deserted Southern Ridge",
     195: "Sinister Rocky Mask - Twilight Perion: Forsaken Excavation Site 2",
     196: "Sinister Steel Mask - Twilight Perion: Forsaken Excavation Site 4",
