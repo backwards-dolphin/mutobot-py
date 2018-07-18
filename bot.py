@@ -10,9 +10,8 @@ TOKEN = os.environ['discord']
 command_prefix = '.'
 client = commands.Bot(command_prefix=command_prefix)
 owner = ["89973782285910016"]
-adminRoles = ["Eggcellent", "Tama-sama", "memer"]
 supportedRoles = ["notifications","hmag","cvel","lomien"]
-extensions = ['starsim']
+extensions = ['starsim', 'training', 'strings']
 
 client.remove_command('help')
 
@@ -212,7 +211,7 @@ async def member(ctx):
 if __name__ == '__main__':
     for extension in extensions:
         try:
-            client.load_extension(extension)
+            client.load_extension("cogs." + extension)
         except Exception as error:
             print('{} cannot be loaded. [{}]'.format(extension,error))
 
