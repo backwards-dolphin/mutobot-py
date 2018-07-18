@@ -49,7 +49,6 @@ async def reset_notifications():
                 msg = await client.send_message(notifications,"Reset time! Meet up with your guildies in CH18 Root Abyss.")
             await asyncio.sleep(600)
             await client.delete_message(msg)
-        print("Current time: " + str(datetime.utcnow()))
         await asyncio.sleep(60 - datetime.utcnow().second)
 
 
