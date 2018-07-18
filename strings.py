@@ -24,6 +24,9 @@ def getHelp():
 .train (level) {range?}
 #Searches for good training spots around your level
 #{range} is optional if you wish to broaden your search
+.star (money) {star level?}
+#Simulates your odds on getting 22* or specified stars based on money
+#Example: .star 5.2b 15
 
 < Supported roles >
 #hmag
