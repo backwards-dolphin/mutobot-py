@@ -206,8 +206,7 @@ async def leave(ctx, role):
 async def member(ctx):
      memberAdd = discord.utils.get(ctx.message.server.roles, name="Smol Egg")
      verifiedAdd = discord.utils.get(ctx.message.server.roles,name="Verified")
-     await client.add_roles(ctx.message.mentions[0], memberAdd)
-     await client.add_roles(ctx.message.mentions[0], verifiedAdd)
+     await client.add_roles(ctx.message.mentions[0], memberAdd, verifiedAdd)
      await client.say("Added!")
 
 client.loop.create_task(reset_notifications())
