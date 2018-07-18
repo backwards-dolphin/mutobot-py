@@ -29,7 +29,7 @@ class poll:
             description += '\n{} {}'.format(reactions[x], option)
         embed = discord.Embed(title=question, description=description, color=0xffdd88)
         embed.set_thumbnail(url="https://i.imgur.com/LpZoKi7.png")
-        react_message = await client.say(embed=embed)
+        react_message = await self.client.say(embed=embed)
         for reaction in reactions[:len(entries)]:
             await self.client.add_reaction(react_message, reaction)
         embed.set_footer(text='Poll ID: {}'.format(react_message.id))
