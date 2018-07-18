@@ -11,7 +11,7 @@ command_prefix = '.'
 client = commands.Bot(command_prefix=command_prefix)
 owner = ["89973782285910016"]
 adminRoles = ["Eggcellent", "Tama-sama", "memer"]
-supportedRoles = ["notifications","hmag","cvel"]
+supportedRoles = ["notifications","hmag","cvel","lomien"]
 
 client.remove_command('help')
 
