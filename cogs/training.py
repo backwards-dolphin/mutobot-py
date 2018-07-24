@@ -87,7 +87,5 @@ class training:
         else:
             await self.client.say("Please use a smaller range! (less than 20)")
 
-
-
 def setup(client):
     client.add_cog(training(client))

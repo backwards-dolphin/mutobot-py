@@ -52,9 +52,9 @@ class starsim:
                     if 0 <= currentStars <= 9:
                         currentMoney += (1000 + (160 ** 3) * (currentStars + 1)/25)
                     elif 10 <= currentStars <= 14:
-                        currentMoney += (1000 + (160 ** 3) * ((currentStars+1) ** 2.7) / 400)
+                        currentMoney += (1000 + (160 ** 3) * ((currentStars+1) ** 2.6) / 200)
                     else:
-                        currentMoney += (1000 + (160 ** 3) * ((currentStars+1) ** 2.7) / 200)
+                        currentMoney += (1000 + (160 ** 3) * ((currentStars+1) ** 2.7) / 100)
 
                     if 0 < output <= starSuccess:
                         currentStars +=1
@@ -81,18 +81,12 @@ class starsim:
             embed.add_field(name="Odds", value = str(odds),inline=True)
             await self.client.say(embed=embed)
 
-    #Convert 100m/100b etc to number
-    def convert(val):
-        lookup = {'k': 1000, 'm': 1000000, 'b': 1000000000}
-        unit = val[-1]
-        try:
-            number = int(val[:-1])
-        except ValueError:
-            print("Invalid entry")
-        if unit in lookup:
-            return lookup[unit] * number
-        return int(val)
-
-
+    @commands.commands
+    async def mesotable(self, level: int, range1=15, range2=24):
+        embed=discord.Embed(title="Starring Simulation", color=0xffdd88)
+        embed.set_thumbnail(url="https://i.imgur.com/LpZoKi7.png")
+        for i in range(range1, range2)
+            embed.add_field(name="Star: " + str(i), value=(1000 + (level ** 3) + ((i + 1) ** 2.7) / 100), inline=False)
+        await self.client.say(embed=embed)
 def setup(client):
     client.add_cog(starsim(client))
