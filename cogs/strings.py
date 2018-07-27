@@ -76,6 +76,7 @@ Each zone has it's own pre-quests before you can get their respective "Arcane Sy
 Arcane Symbols are in-essence additional stats to help you progress. It works much like star force where maps had requirements.
 For arcane force, every map requires a certain amount for you to do full damage to the monsters there.
 It's important to do your arcane river dailies every day for each zone to maximize your arcane force.```"""
+        await self.client.say(msg)
 
 def setup(client):
     client.add_cog(strings(client))
