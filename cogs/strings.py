@@ -58,6 +58,24 @@ Crimson Queen --> Pierre --> VonBon --> Vellum --> NMagnus/CHT
 This can help our guild grow, as well as help you get your 10 RA runs!```"""
         await self.client.say(msg)
 
-time.sleep(1)
+    @commands.command(pass_context=True)
+    async def post200(self, ctx):
+        msg = """```md
+[ Post Level 200 ]
+------------------
+After level 200 is when a majority of the "late-game" Maplestory content is unlocked.
+At Level 200, you unlock a new area accessible on your map called "Arcane River". You can access it through the drop down in the top left as if you were going to Grandis (Heliseum, etc).
+[ Arcane River ]
+---------------
+There are currently 6 zones in Arcane River.
+In order of level, the zones are: Vanishing Journey, Chu Chu Island, Lachelein, Arcana, Morass, and then Esfera.
+You unlock Vanishing Journey at level 200, ChuChu at level 210, Lachelein at 220, Arcana at 225, Morass at 230, and Esfera at 235.
+Each zone has it's own pre-quests before you can get their respective "Arcane Symbols".
+[ Arcane Symbols]
+-----------------
+Arcane Symbols are in-essence additional stats to help you progress. It works much like star force where maps had requirements.
+For arcane force, every map requires a certain amount for you to do full damage to the monsters there.
+It's important to do your arcane river dailies every day for each zone to maximize your arcane force.```"""
+
 def setup(client):
     client.add_cog(strings(client))
