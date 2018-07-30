@@ -90,6 +90,7 @@ async def logout(ctx):
 async def register(ctx, msg):
     tama = client.get_server("404103946328866818")
     smolEgg = discord.utils.get(ctx.message.server.roles, name="Smol Egg")
+    newEgg = discord.utils.get(ctx.message.server.roles, name="egg")
     if ctx.message.server == tama:
         if smolEgg in ctx.message.author.roles:
             await client.say("You are already a member!")
@@ -97,6 +98,14 @@ async def register(ctx, msg):
             jrChannel = client.get_channel("405565182891261963")
             await client.change_nickname(ctx.message.author, ctx.message.author.name + " (" + msg + ")")
             await client.say("The JRs have been notified! We will verify you soon.")
+            msg = await client.say("We also have a beginner role for new players! Would you like to join?")
+            await client.add_reaction(msg,'👍')
+            await client.add_reaction(msg,'👎')
+            res = await client.wait_for_reaction('👍', message=msg, timeout=600)
+            if res.user is not None:
+                if res.user is ctx.message.author:
+                    await client.add_roles(ctx.message.author, newEgg)
+                    await client.say("I've added you to the role. Enjoy your stay!")
             await client.send_message(jrChannel, ctx.message.author.mention + " has joined and verified their username. Please user .member {@mention} to verify.")
     else:
         await client.say("You are not in Tama!")
