@@ -36,7 +36,7 @@ class bossqueue:
                 embed.set_thumbnail(url=image.get(boss))
                 names = ""
                 for name in sBoss[boss]:
-                    names += name + "\n"
+                    names += str(name) + "\n"
                 names = names[:-1]
                 embed.add_field(name=names,value='\u200b', inline=True)
                 sBoss.close()
