@@ -52,23 +52,6 @@ async def reset_notifications():
 
 
 @client.event
-async def on_command_error(error,ctx):
-    if isinstance(error, commands.NoPrivateMessage):
-        await client.send_message(ctx.message.channel,"This command cannot be used in private messages.")
-
-    elif isinstance(error, commands.DisabledCommand):
-        await client.send_message(ctx.message.channel,"This command is disabled and cannot be used.")
-
-    elif isinstance(error, commands.MissingRequiredArgument):
-        await client.send_message(ctx.message.channel,"You are missing required arguments!")
-
-    elif isinstance(error, commands.CommandNotFound):
-        pass
-
-    else:
-        print("Some error has been thrown!")
-
-@client.event
 async def on_message(message):
     if message.content.startswith(".."):
         return
