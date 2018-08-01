@@ -9,13 +9,15 @@ class strings:
     @commands.command(pass_context=True)
     async def help(self, ctx):
         msg = """```md
-[ MutoBot version 1.0 ]
+[ MutoBot version 1.5 ]
 -----------------------
 [ = A Tama Helper = ]
 =====================
 < Admin Commands >
 .member (mention)
 #Adds member to Smol Egg role
+.refresh (boss/all)
+#Refreshes the bossing lists
 
 < Commands >
 .help
@@ -36,11 +38,17 @@ class strings:
 .star (money) {star level?}
 #Simulates your odds on getting 22* or specified stars based on money
 #Example: .star 5.2b 15
+.queue (boss) *Supported bosses are below
+#Adds you to a list for carries
+.list (boss) *Supported bosses are below
+#Lists the current queue for a boss
 
 < Supported roles >
-#hmag
-#cvel
-#notifications```"""
+#notifications
+
+< Supported bosses >
+damien, lotus, hmag, cvel, 3door, lucid
+```"""
         await self.client.say("I've sent you a PM, " + ctx.message.author.mention)
         await self.client.send_message(ctx.message.author, msg)
 
