@@ -32,7 +32,7 @@ class bossqueue:
         if boss in bosses:
             sBoss=shelve.open('boss', flag='c')
             if boss in sBoss and sBoss[boss]:
-                embed=discord.Embed(title="Boss Partying", color=0xffdd88)
+                embed=discord.Embed(title="Boss Queueing ({0})".format(boss), color=0xffdd88)
                 embed.set_thumbnail(url=image.get(boss))
                 names = ""
                 for name in sBoss[boss]:
