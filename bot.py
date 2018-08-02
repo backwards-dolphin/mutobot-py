@@ -11,6 +11,7 @@ client = commands.Bot(command_prefix=command_prefix)
 owner = ["89973782285910016"]
 supportedRoles = ["notifications","hmag","cvel","lomien"]
 extensions = ['starsim', 'training', 'strings', 'poll']
+tama = "404103946328866818"
 
 client.remove_command('help')
 
@@ -23,12 +24,21 @@ async def on_ready():
 
 @client.event
 async def on_member_join(member):
-    tama = "404103946328866818"
     if member.server.id == tama:
         welcome = client.get_channel("408318436192550924") # 408318436192550924
         rules = client.get_channel("404439224973000704")
         await client.send_message(welcome, "Welcome to Tama, " + member.mention + "! Please read the " + rules.mention + " to register! Be sure to introduce yourself to everyone!")
     # add logic here --> user posts username and send message to JRS channel for confirmation s
+
+@client.event
+async def on_voice_state_update(before, after):
+    home = client.get_server("404103946328866818")
+    if home.id == tama:
+        vc = discord.utils.get(home.roles, name="voice")
+        if after.voice.voice_channel is not None:
+            await client.add_roles(after, vc)
+        else:
+            await client.remove_roles(after, vc)
 
 async def reset_notifications():
     notifications = discord.Object(id="468950573497057332")
