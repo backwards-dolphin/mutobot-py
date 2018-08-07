@@ -1,2 +1,2 @@
 discord.py
-shelves
+python-firebase
