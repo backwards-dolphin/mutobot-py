@@ -18,7 +18,6 @@ class bossqueue:
         if boss in bosses:
             fb = firebase.FirebaseApplication(url, None)
             result = fb.get('/{0}/{1}'.format(boss, ctx.message.author.id), None)
-            print(result)
             if result != None:
                 await self.client.say("You're already queued for this boss.")
                 return
