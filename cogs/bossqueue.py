@@ -6,7 +6,8 @@ from firebase import firebase
 bosses = ["damien", "lotus", "cvel", "3door", "hmag", "lucid"]
 image = {"damien": "https://i.imgur.com/XlDxegv.png", "lotus": "https://i.imgur.com/JBLhwgx.png",
 "hmag": "https://i.imgur.com/CXWxoSk.png", "lucid": "https://i.imgur.com/DHGqVpM.png", "cvel": "https://i.imgur.com/kVFEEh5.png"}
-url = environ['url']
+name = environ['url']
+url = "https://" + str(name) + ".firebaseio.com/"
 
 class bossqueue:
     def __init__(self,client):
@@ -22,7 +23,7 @@ class bossqueue:
                 await self.client.say("You're already queued for this boss.")
                 return
             append = fb.patch('/{0}/'.format(boss), {ctx.message.author.id: ctx.message.author.display_name})
-            await self.client.say("I've added you to the queue, {0}".format(ctx.message.author.display_name))
+            await self.client.say("I've added you to the queue, {0}".format(ctx.message.author.mention))
         else:
             await self.client.say("Invalid boss. Please use the bosses from .help")
 
