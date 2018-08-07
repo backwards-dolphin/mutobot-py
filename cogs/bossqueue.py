@@ -53,7 +53,7 @@ class bossqueue:
         if boss == "all":
             for allBoss in bosses:
                 result = fb.get('/{0}/'.format(allBoss), None)
-                if reuslt != None:
+                if result != None:
                     for key in result:
                         fb.delete('/{0}'.format(allBoss), key)
             await self.client.say("I've refreshed all bosses.")
