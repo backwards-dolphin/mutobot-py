@@ -53,8 +53,9 @@ class bossqueue:
         if boss == "all":
             for allBoss in bosses:
                 result = fb.get('/{0}/'.format(allBoss), None)
-                for key in result:
-                    fb.delete('/{0}'.format(allBoss), key)
+                if reuslt != None:
+                    for key in result:
+                        fb.delete('/{0}'.format(allBoss), key)
             await self.client.say("I've refreshed all bosses.")
         elif boss in bosses:
             result = fb.get('/{0}/'.format(boss), None)
@@ -70,12 +71,13 @@ class bossqueue:
         if boss in bosses:
             fb = firebase.FirebaseApplication(url, None)
             result = fb.get('/{0}/'.format(boss), None)
-            for key in result:
-                name = fb.get('/{0}/{1}'.format(boss, key), None)
-                if user in name:
-                    fb.delete('/{0}'.format(boss), key)
-                    await self.client.say("I've deleted this user.")
-                    return
+            if result != None:
+                for key in result:
+                    name = fb.get('/{0}/{1}'.format(boss, key), None)
+                    if user in name:
+                        fb.delete('/{0}'.format(boss), key)
+                        await self.client.say("I've deleted this user.")
+                        return
             await self.client.say("User not found in boss.")
         else:
             await self.client.say("Invalid Boss.")
