@@ -1,12 +1,12 @@
 import discord
 from discord.ext import commands
-import shelve
-import os
+from os import environ
+from firebase import firebase
 
 bosses = ["damien", "lotus", "cvel", "3door", "hmag", "lucid"]
 image = {"damien": "https://i.imgur.com/XlDxegv.png", "lotus": "https://i.imgur.com/JBLhwgx.png",
-"hmag": "https://i.imgur.com/CXWxoSk.png", "lucid": "https://i.imgur.com/DHGqVpM.png", "cvel": "https://i.imgur.com/kVFEEh5.png", "3door": "https://i.imgur.com/kVFEEh5.png"}
-owner = ["89973782285910016"]
+"hmag": "https://i.imgur.com/CXWxoSk.png", "lucid": "https://i.imgur.com/DHGqVpM.png", "cvel": "https://i.imgur.com/kVFEEh5.png"}
+url = environ['url']
 
 class bossqueue:
     def __init__(self,client):
@@ -15,32 +15,32 @@ class bossqueue:
     @commands.command(pass_context=True)
     async def queue(self, ctx, boss):
         if boss in bosses:
-            sBoss = shelve.open("boss", flag='c', writeback=True)
-            if boss not in sBoss:
-                sBoss[boss] = [ctx.message.author.name]
-                await self.client.say("I've added you to the queue, {0}".format(ctx.message.author.mention))
-                sBoss.close()
-            else:
-                sBoss[boss].append(ctx.message.author)
-                await self.client.say("I've added you to the queue, {0}".format(ctx.message.author.mention))
-                sBoss.close()
+            fb = firebase.FirebaseApplication(url, None)
+            result = fb.get('/{0}/{1}'.format(boss, ctx.message.author.id), None)
+            print(result)
+            if result != None:
+                await self.client.say("You're already queued for this boss.")
+                return
+            append = fb.patch('/{0}/'.format(boss), {ctx.message.author.id: ctx.message.author.display_name})
+            await self.client.say("I've added you to the queue, {0}".format(ctx.message.author.display_name))
         else:
             await self.client.say("Invalid boss. Please use the bosses from .help")
 
     @commands.command(pass_context=True)
     async def list(self, ctx, boss):
         if boss in bosses:
-            sBoss=shelve.open('boss', flag='c')
-            if boss in sBoss and sBoss[boss]:
-                embed=discord.Embed(title="Boss Queueing ({0})".format(boss), color=0xffdd88)
+            fb = firebase.FirebaseApplication(url, None)
+            result = fb.get('/{0}/'.format(boss), None)
+            if result != None:
+                names=""
+                for key in result:
+                    name = fb.get('/{0}/{1}'.format(boss, key), None) + "\n"
+                    names += name
+                embed=discord.Embed(title="Boss Partying", color=0xffdd88)
                 embed.set_thumbnail(url=image.get(boss))
-                names = ""
-                for name in sBoss[boss]:
-                    names += str(name) + "\n"
-                names = names[:-1]
-                embed.add_field(name=names,value='\u200b', inline=True)
-                sBoss.close()
-                await self.client.say(embed=embed)
+                if names != "":
+                    embed.add_field(name=names,value='\u200b', inline=True)
+                    await self.client.say(embed=embed)
             else:
                 await self.client.say("There is no one in queue.")
         else:
@@ -49,31 +49,22 @@ class bossqueue:
     @commands.command(pass_context=True)
     @commands.has_permissions(manage_roles = True)
     async def refresh(self, ctx, boss="all"):
-        sBoss = shelve.open("boss", flag='c')
-        sBoss.clear()
+        fb = firebase.FirebaseApplication(url, None)
         if boss == "all":
-            sBoss["damien"] = []
-            sBoss["lotus"] = []
-            sBoss["lucid"] = []
-            sBoss["3door"] = []
-            sBoss["hmag"] = []
-            sBoss["cvel"] = []
-            await self.client.say("I've cleared all lists!")
+            for allBoss in bosses:
+                result = fb.get('/{0}/'.format(allBoss), None)
+                for key in result:
+                    fb.delete('/{0}'.format(allBoss), key)
+            await self.client.say("I've refreshed all bosses.")
+        elif boss in bosses:
+            result = fb.get('/{0}/'.format(boss), None)
+            for key in result:
+                fb.delete('/{0}'.format(boss), key)
+            await self.client.say("I've refreshed {0}".format(boss))
         else:
-            if boss in bosses:
-                sBoss[boss] = []
-                await self.client.say("I've cleared {0}!".format(boss))
-        sBoss.close()
+            await self.client.say("Invalid Boss.")
 
-    @commands.command(pass_context=True)
-    async def removefiles(self, ctx):
-        if ctx.message.author.id in owner:
-            os.remove("boss.bak")
-            os.remove("boss.dat")
-            os.remove("boss.dir")
-            await self.client.say("Files removed")
-        else:
-            await self.client.say("You are missing permissions!")
+
 
 def setup(client):
     client.add_cog(bossqueue(client))

@@ -16,7 +16,7 @@ class strings:
 < Admin Commands >
 .member (mention)
 #Adds member to Smol Egg role
-.refresh (boss/all) **DISABLED
+.refresh (boss/all)
 #Refreshes the bossing lists
 
 < Commands >
@@ -38,9 +38,9 @@ class strings:
 .star (money) {star level?}
 #Simulates your odds on getting 22* or specified stars based on money
 #Example: .star 5.2b 15
-.queue (boss) *Supported bosses are below **DISABLED
+.queue (boss) *Supported bosses are below
 #Adds you to a list for carries
-.list (boss) *Supported bosses are below **DISABLED
+.list (boss) *Supported bosses are below
 #Lists the current queue for a boss
 
 < Supported roles >

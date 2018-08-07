@@ -50,9 +50,9 @@ async def reset_notifications():
             await asyncio.sleep(1800)
             await client.delete_message(msg)
         if datetime.utcnow().hour == 0 and datetime.utcnow().minute == 0:
-            if (datetime.today().weekday() == 6):
+            if (datetime.today().weekday() == 0):
                 msg = await client.send_message(notifications,"Reset time! Meet up with your guild members in CH18 Root Abyss. Be sure to collect your guild potions too!")
-            elif (datetime.today().weekday() == 3):
+            elif (datetime.today().weekday() == 4):
                 msg = await client.send_message(notifications,"Weekly reset time! Meet up with your guildies in CH18 Root Abyss.")
             else:
                 msg = await client.send_message(notifications,"Reset time! Meet up with your guildies in CH18 Root Abyss.")
