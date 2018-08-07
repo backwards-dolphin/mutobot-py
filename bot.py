@@ -1,5 +1,6 @@
 import discord
 from discord.ext import commands
+from cogs.bossqueue import *
 import os
 import re
 from datetime import datetime, time
@@ -60,6 +61,15 @@ async def reset_notifications():
             await client.delete_message(msg)
         await asyncio.sleep(60 - datetime.utcnow().second)
 
+async def carry_notifications():
+    await client.wait_until_ready()
+    while True:
+        if datetime.utcnow().hour == 20 and datetime.utcnow().minute == 00:
+            bp = bossqueue(client)
+            await bp.carry_notifications()
+            await asyncio.sleep(86400)
+        else:
+            await asyncio.sleep(60 - datetime.utcnow().second)
 
 @client.event
 async def on_command_error(error,ctx):
@@ -171,5 +181,6 @@ if __name__ == '__main__':
         except Exception as error:
             print('{} cannot be loaded. [{}]'.format(extension,error))
 
+client.loop.create_task(carry_notifications())
 client.loop.create_task(reset_notifications())
 client.run(TOKEN)
