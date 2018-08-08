@@ -64,7 +64,7 @@ async def reset_notifications():
 async def carry_notifications():
     await client.wait_until_ready()
     while True:
-        if datetime.utcnow().hour == 20 and datetime.utcnow().minute == 00:
+        if datetime.utcnow().hour == 0 and datetime.utcnow().minute == 00:
             bp = bossqueue(client)
             await bp.carry_notifications()
             await asyncio.sleep(86400)
