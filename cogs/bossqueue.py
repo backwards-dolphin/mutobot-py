@@ -83,7 +83,7 @@ class bossqueue:
             await self.client.say("Invalid Boss.")
 
     async def carry_notifications(self):
-        carries = discord.Object(id='468885154002239490')
+        carries = discord.Object(id='476206579381960713')
         count = 0
         embed=discord.Embed(title="Daily boss reminder", color=0xffdd88)
         fb = firebase.FirebaseApplication(url, None)
