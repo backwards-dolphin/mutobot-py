@@ -118,6 +118,7 @@ async def register(ctx, msg):
             jrChannel = client.get_channel("405565182891261963")
             await client.change_nickname(ctx.message.author, ctx.message.author.name + " (" + msg + ")")
             await client.say("The JRs have been notified! We will verify you soon.")
+            await client.send_message(jrChannel, ctx.message.author.mention + " has joined and verified their username. Please user .member {@mention} to verify.")
             msg = await client.say("We also have a beginner role for new players! Would you like to join?")
             await client.add_reaction(msg,'👍')
             await client.add_reaction(msg,'👎')
@@ -126,7 +127,6 @@ async def register(ctx, msg):
                 if res.user is ctx.message.author:
                     await client.add_roles(ctx.message.author, newEgg)
                     await client.say("I've added you to the role. Enjoy your stay!")
-            await client.send_message(jrChannel, ctx.message.author.mention + " has joined and verified their username. Please user .member {@mention} to verify.")
     else:
         await client.say("You are not in Tama!")
 
