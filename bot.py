@@ -92,6 +92,9 @@ async def on_command_error(error,ctx):
 async def on_message(message):
     if message.content.startswith(".."):
         return
+    if "alexa play despacito" in message.content:
+        url = "https://www.youtube.com/watch?v=kJQP7kiw5Fk"
+        await client.send_message(message.channel, url)
     await client.process_commands(message)
 
 @client.command(pass_context = True, hidden = True)
