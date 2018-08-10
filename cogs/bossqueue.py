@@ -5,7 +5,8 @@ from firebase import firebase
 
 bosses = ["damien", "lotus", "cvel", "3door", "hmag", "lucid"]
 image = {"damien": "https://i.imgur.com/XlDxegv.png", "lotus": "https://i.imgur.com/JBLhwgx.png",
-"hmag": "https://i.imgur.com/CXWxoSk.png", "lucid": "https://i.imgur.com/DHGqVpM.png", "cvel": "https://i.imgur.com/kVFEEh5.png"}
+"hmag": "https://i.imgur.com/CXWxoSk.png", "lucid": "https://i.imgur.com/DHGqVpM.png", "cvel": "https://i.imgur.com/kVFEEh5.png",
+"3door": "https://i.imgur.com/Gg6Ys8B.png"}
 name = environ['url']
 url = "https://" + str(name) + ".firebaseio.com/"
 
