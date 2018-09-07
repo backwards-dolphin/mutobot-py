@@ -40,6 +40,8 @@ class strings:
 #Example: .star 5.2b 15
 .queue (boss) *Supported bosses are below
 #Adds you to a list for carries
+.unqueue (boss)
+#Removes you from the carry list for a boss
 .list (boss) *Supported bosses are below
 #Lists the current queue for a boss
 
