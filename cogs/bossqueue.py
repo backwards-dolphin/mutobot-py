@@ -28,6 +28,19 @@ class bossqueue:
             await self.client.say("Invalid boss. Please use the bosses from .help")
 
     @commands.command(pass_context=True)
+    async def unqueue(self, ctx, boss):
+        if boss in bosses:
+            fb = firebase.FirebaseApplication(url, None)
+            result = fb.get('/{0}/{1}'.format(boss, ctx.message.author.id), None)
+            if result != None:
+                for key in result:
+                    fb.delete('/{0}'.format(boss), key)
+                await self.client.say("I've removed you from the list.")
+            else:
+                await self.client.say("You are not queued for this boss.")
+
+
+    @commands.command(pass_context=True)
     async def list(self, ctx, boss):
         if boss in bosses:
             fb = firebase.FirebaseApplication(url, None)
