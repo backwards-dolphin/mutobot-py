@@ -1,5 +1,5 @@
 # mutobot-py
 
-## Supports several functions such as boss queueing/unqueueing for game servers. 
+Supports several functions such as boss queueing/unqueueing for game servers. 
 
-### Deployed on a server supporting around 140 members.
+Deployed on a server supporting around 140 members.
