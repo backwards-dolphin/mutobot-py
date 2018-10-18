@@ -23,7 +23,7 @@ class bossqueue:
                 await self.client.say("You're already queued for this boss.")
                 return
             append = fb.patch('/{0}/'.format(boss), {ctx.message.author.id: ctx.message.author.display_name})
-            newRank = discord.utils.get(ctx.message.server.roles, name="{0}".format(boss.tolower()))
+            newRank = discord.utils.get(ctx.message.server.roles, name="{0}".format(boss.lower()))
             await client.add_roles(ctx.message.author, newRank)
             await self.client.say("I've added you to the queue and role, {0}".format(ctx.message.author.mention))
         else:
@@ -40,7 +40,7 @@ class bossqueue:
                         if key == ctx.message.author.id:
                             fb.delete('/{0}'.format(boss), ctx.message.author.id)
                             try:
-                                newRank = discord.utils.get(ctx.message.server.roles, name="{0}".format(boss.tolower()))
+                                newRank = discord.utils.get(ctx.message.server.roles, name="{0}".format(boss.lower()))
                                 await client.remove_roles(ctx.message.author, newRank)
                             except:
                                 print("this don't work!!!!")
