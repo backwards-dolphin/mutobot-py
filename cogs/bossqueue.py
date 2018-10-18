@@ -31,15 +31,15 @@ class bossqueue:
     async def unqueue(self, ctx, boss):
         if boss.lower() in bosses:
             fb = firebase.FirebaseApplication(url, None)
-            result = fb.get('/{0}/{1}'.format(boss, ctx.message.author.id), None)
+            result = fb.get('/{0}'.format(boss), None)
             if result != None:
                 try:
-                    fb.delete('/{0}'.format(boss), ctx.message.author.id)
-                    await self.client.say("I've removed you from the list.")
+                    for key in result:
+                        if key == ctx.message.author.id:
+                            fb.delete('/{0}'.format(boss), ctx.message.author.id)
+                            await self.client.say("I've removed you from the list.")
                 except:
                     await self.client.say("You are not queued for this boss.")
-            else:
-                await self.client.say("You are not queued for this boss.")
 
 
     @commands.command(pass_context=True)
