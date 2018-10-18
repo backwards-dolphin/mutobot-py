@@ -23,8 +23,11 @@ class bossqueue:
                 await self.client.say("You're already queued for this boss.")
                 return
             append = fb.patch('/{0}/'.format(boss), {ctx.message.author.id: ctx.message.author.display_name})
-            newRank = discord.utils.get(ctx.message.server.roles, name="{0}".format(boss.lower()))
-            await self.client.add_roles(ctx.message.author, newRank)
+            try:
+                newRank = discord.utils.get(ctx.message.server.roles, name="{0}".format(boss.lower()))
+                await self.client.add_roles(ctx.message.author, newRank)
+            except:
+                await self.client.say("...so I don't know what happened but something didn't work, so contact colin")
             await self.client.say("I've added you to the queue and role, {0}".format(ctx.message.author.mention))
         else:
             await self.client.say("Invalid boss. Please use the bosses from .help")
@@ -43,7 +46,7 @@ class bossqueue:
                                 newRank = discord.utils.get(ctx.message.server.roles, name="{0}".format(boss.lower()))
                                 await self.client.remove_roles(ctx.message.author, newRank)
                             except:
-                                print("this don't work!!!!")
+                                await self.client.say("...so I don't know what happened but something didn't work, so contact colin")
                             await self.client.say("I've removed you from the list.")
                 except:
                     await self.client.say("You are not queued for this boss.")
@@ -99,6 +102,11 @@ class bossqueue:
                     name = fb.get('/{0}/{1}'.format(boss, key), None)
                     if user in name:
                         fb.delete('/{0}'.format(boss), key)
+                        try:
+                            newRank = discord.utils.get(ctx.message.server.roles, name="{0}".format(boss.lower()))
+                            await self.client.remove_roles(ctx.message.author, newRank)
+                        except:
+                            await self.client.say("...so I don't know what happened but something didn't work, so contact colin")
                         await self.client.say("I've deleted this user.")
                         return
             await self.client.say("User not found in boss.")
