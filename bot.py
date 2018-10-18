@@ -86,7 +86,7 @@ async def on_command_error(error,ctx):
         pass
 
     else:
-        print("Some error has been thrown!")
+        print(error)
 
 @client.event
 async def on_message(message):
