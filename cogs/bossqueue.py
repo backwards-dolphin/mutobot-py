@@ -29,20 +29,22 @@ class bossqueue:
 
     @commands.command(pass_context=True)
     async def unqueue(self, ctx, boss):
-        if boss in bosses:
+        if boss.lower() in bosses:
             fb = firebase.FirebaseApplication(url, None)
             result = fb.get('/{0}/{1}'.format(boss, ctx.message.author.id), None)
             if result != None:
-                for key in result:
-                    fb.delete('/{0}'.format(boss), key)
-                await self.client.say("I've removed you from the list.")
+                try:
+                    fb.delete('/{0}'.format(boss), ctx.message.author.id)
+                    await self.client.say("I've removed you from the list.")
+                except:
+                    await self.client.say("You are not queued for this boss.")
             else:
                 await self.client.say("You are not queued for this boss.")
 
 
     @commands.command(pass_context=True)
     async def list(self, ctx, boss):
-        if boss in bosses:
+        if boss.lower() in bosses:
             fb = firebase.FirebaseApplication(url, None)
             result = fb.get('/{0}/'.format(boss), None)
             if result != None:
@@ -71,7 +73,7 @@ class bossqueue:
                     for key in result:
                         fb.delete('/{0}'.format(allBoss), key)
             await self.client.say("I've refreshed all bosses.")
-        elif boss in bosses:
+        elif boss.lower() in bosses:
             result = fb.get('/{0}/'.format(boss), None)
             for key in result:
                 fb.delete('/{0}'.format(boss), key)
@@ -82,7 +84,7 @@ class bossqueue:
     @commands.command(pass_context=True)
     @commands.has_permissions(manage_roles=True)
     async def remove(self, ctx, user, boss):
-        if boss in bosses:
+        if boss.lower() in bosses:
             fb = firebase.FirebaseApplication(url, None)
             result = fb.get('/{0}/'.format(boss), None)
             if result != None:
