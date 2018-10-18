@@ -23,12 +23,8 @@ class bossqueue:
                 await self.client.say("You're already queued for this boss.")
                 return
             append = fb.patch('/{0}/'.format(boss), {ctx.message.author.id: ctx.message.author.display_name})
-            try:
-                newRank = discord.utils.get(ctx.message.server.roles, name="{0}".format(boss.tolower()))
-                await client.add_roles(ctx.message.author, newRank)
-            except:
-                print("this don't work!!!!")
-
+            newRank = discord.utils.get(ctx.message.server.roles, name="{0}".format(boss.tolower()))
+            await client.add_roles(ctx.message.author, newRank)
             await self.client.say("I've added you to the queue and role, {0}".format(ctx.message.author.mention))
         else:
             await self.client.say("Invalid boss. Please use the bosses from .help")
