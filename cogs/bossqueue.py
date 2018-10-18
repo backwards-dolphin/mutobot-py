@@ -24,7 +24,7 @@ class bossqueue:
                 return
             append = fb.patch('/{0}/'.format(boss), {ctx.message.author.id: ctx.message.author.display_name})
             try:
-                newRank = discord.utils.get(user.server.roles, name=boss.tolower())
+                newRank = discord.utils.get(ctx.message.server.roles, name="{0}".format(boss.tolower()))
                 await client.add_roles(ctx.message.author, newRank)
             except:
                 print("this don't work!!!!")
@@ -44,7 +44,7 @@ class bossqueue:
                         if key == ctx.message.author.id:
                             fb.delete('/{0}'.format(boss), ctx.message.author.id)
                             try:
-                                newRank = discord.utils.get(user.server.roles, name=boss.tolower())
+                                newRank = discord.utils.get(ctx.message.server.roles, name="{0}".format(boss.tolower()))
                                 await client.remove_roles(ctx.message.author, newRank)
                             except:
                                 print("this don't work!!!!")
