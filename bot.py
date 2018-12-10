@@ -109,7 +109,7 @@ async def logout(ctx):
         await client.say("You do not have permissions to do this")
         return
 
-@client.command(pass_context = True)
+#@client.command(pass_context = True)
 #async def register(ctx, msg):
  #   tama = client.get_server("404103946328866818")
   #  smolEgg = discord.utils.get(ctx.message.server.roles, name="Smol Egg")
