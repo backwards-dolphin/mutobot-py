@@ -11,7 +11,7 @@ command_prefix = '.'
 client = commands.Bot(command_prefix=command_prefix)
 owner = ["89973782285910016"]
 supportedRoles = ["notifications","hmag","cvel","lomien"]
-extensions = ['starsim', 'training', 'strings', 'poll', 'bossqueue']
+extensions = ['starsim', 'training', 'strings', 'poll']
 tama = "404103946328866818"
 
 client.remove_command('help')
@@ -23,12 +23,12 @@ async def on_ready():
     print(client.user.id)
     await client.change_presence(game=discord.Game(name='in Tama | .help'))
 
-@client.event
-async def on_member_join(member):
-    if member.server.id == tama:
-        welcome = client.get_channel("408318436192550924") # 408318436192550924
-        rules = client.get_channel("404439224973000704")
-        await client.send_message(welcome, "Welcome to Tama, " + member.mention + "! Please read the " + rules.mention + " to register! Be sure to introduce yourself to everyone!")
+# @client.event
+# async def on_member_join(member):
+    # if member.server.id == tama:
+        # welcome = client.get_channel("408318436192550924") # 408318436192550924
+        # rules = client.get_channel("404439224973000704")
+        # await client.send_message(welcome, "Welcome to Tama, " + member.mention + "! Please read the " + rules.mention + " to register! Be sure to introduce yourself to everyone!")
     # add logic here --> user posts username and send message to JRS channel for confirmation s
 
 @client.event
@@ -61,15 +61,15 @@ async def reset_notifications():
             await client.delete_message(msg)
         await asyncio.sleep(60 - datetime.utcnow().second)
 
-async def carry_notifications():
-    await client.wait_until_ready()
-    while True:
-        if datetime.utcnow().hour == 0 and datetime.utcnow().minute == 00:
-            bp = bossqueue(client)
-            await bp.carry_notifications()
-            await asyncio.sleep(86400)
-        else:
-            await asyncio.sleep(60 - datetime.utcnow().second)
+# async def carry_notifications():
+ #    await client.wait_until_ready()
+ #    while True:
+  #       if datetime.utcnow().hour == 0 and datetime.utcnow().minute == 00:
+   #          bp = bossqueue(client)
+    #         await bp.carry_notifications()
+   #          await asyncio.sleep(86400)
+   #      else:
+    #        await asyncio.sleep(60 - datetime.utcnow().second)
 
 @client.event
 async def on_command_error(error,ctx):
@@ -110,18 +110,18 @@ async def logout(ctx):
         return
 
 @client.command(pass_context = True)
-async def register(ctx, msg):
-    tama = client.get_server("404103946328866818")
-    smolEgg = discord.utils.get(ctx.message.server.roles, name="Smol Egg")
+#async def register(ctx, msg):
+ #   tama = client.get_server("404103946328866818")
+  #  smolEgg = discord.utils.get(ctx.message.server.roles, name="Smol Egg")
     # newEgg = discord.utils.get(ctx.message.server.roles, name="egg")
-    if ctx.message.server == tama:
-        if smolEgg in ctx.message.author.roles:
-            await client.say("You are already a member!")
-        else:
-            jrChannel = client.get_channel("405565182891261963")
-            await client.change_nickname(ctx.message.author, ctx.message.author.name + " (" + msg + ")")
-            await client.say("The JRs have been notified! We will verify you soon.")
-            await client.send_message(jrChannel, ctx.message.author.mention + " has joined and verified their username. Please user .member {@mention} to verify.")
+   # if ctx.message.server == tama:
+    #    if smolEgg in ctx.message.author.roles:
+     #       await client.say("You are already a member!")
+      #  else:
+       #     jrChannel = client.get_channel("405565182891261963")
+        #    await client.change_nickname(ctx.message.author, ctx.message.author.name + " (" + msg + ")")
+         #   await client.say("The JRs have been notified! We will verify you soon.")
+          #  await client.send_message(jrChannel, ctx.message.author.mention + " has joined and verified their username. Please user .member {@mention} to verify.")
             # msg = await client.say("We also have a beginner role for new players! Would you like to join?")
             # await client.add_reaction(msg,'👍')
             # await client.add_reaction(msg,'👎')
@@ -130,8 +130,8 @@ async def register(ctx, msg):
                 # if res.user is ctx.message.author:
                     # await client.add_roles(ctx.message.author, newEgg)
                     # await client.say("I've added you to the role. Enjoy your stay!")
-    else:
-        await client.say("You are not in Tama!")
+   # else:
+    #    await client.say("You are not in Tama!")
 
 @client.command(pass_context = True)
 async def stamp(ctx, *, msg):
@@ -149,33 +149,33 @@ async def stamp(ctx, *, msg):
         await client.say("Invalid Input!")
     await client.say(string)
 
-@client.command(pass_context=True)
-async def join(ctx, role):
-    user = ctx.message.author
-    if role in supportedRoles:
-        assign = discord.utils.get(user.server.roles, name=role)
-        await client.add_roles(user,assign)
-        await client.say("I've added you to " + role + ", " + ctx.message.author.mention)
-    else:
-        await client.say("Invalid role! Please check ``.help`` for supported roles")
+#@client.command(pass_context=True)
+#async def join(ctx, role):
+#    user = ctx.message.author
+#    if role in supportedRoles:
+#        assign = discord.utils.get(user.server.roles, name=role)
+#        await client.add_roles(user,assign)
+#        await client.say("I've added you to " + role + ", " + ctx.message.author.mention)
+#    else:
+#        await client.say("Invalid role! Please check ``.help`` for supported roles")
 
-@client.command(pass_context=True)
-async def leave(ctx, role):
-    user = ctx.message.author
-    if role in supportedRoles:
-        assign = discord.utils.get(user.server.roles, name=role)
-        await client.remove_roles(user,assign)
-        await client.say("I've removed you from " + role + ", " + ctx.message.author.mention)
-    else:
-        await client.say("Invalid role! Please check ``.help`` for supported roles")
+#@client.command(pass_context=True)
+#async def leave(ctx, role):
+#    user = ctx.message.author
+#    if role in supportedRoles:
+#        assign = discord.utils.get(user.server.roles, name=role)
+#        await client.remove_roles(user,assign)
+#        await client.say("I've removed you from " + role + ", " + ctx.message.author.mention)
+#    else:
+#        await client.say("Invalid role! Please check ``.help`` for supported roles")
 
-@client.command(pass_context = True)
-@commands.has_permissions(manage_roles = True)
-async def member(ctx):
-     memberAdd = discord.utils.get(ctx.message.server.roles, name="Smol Egg")
-     verifiedAdd = discord.utils.get(ctx.message.server.roles,name="Verified")
-     await client.add_roles(ctx.message.mentions[0], memberAdd, verifiedAdd)
-     await client.say("Added!")
+#@client.command(pass_context = True)
+#@commands.has_permissions(manage_roles = True)
+#async def member(ctx):
+#     memberAdd = discord.utils.get(ctx.message.server.roles, name="Smol Egg")
+#     verifiedAdd = discord.utils.get(ctx.message.server.roles,name="Verified")
+#     await client.add_roles(ctx.message.mentions[0], memberAdd, verifiedAdd)
+#     await client.say("Added!")
 
 if __name__ == '__main__':
     for extension in extensions:
@@ -184,6 +184,5 @@ if __name__ == '__main__':
         except Exception as error:
             print('{} cannot be loaded. [{}]'.format(extension,error))
 
-client.loop.create_task(carry_notifications())
 client.loop.create_task(reset_notifications())
 client.run(TOKEN)
